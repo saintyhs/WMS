@@ -72,6 +72,17 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',Robo
 </style>
 </head>
 <body>
+<style>
+/* responsive safety net */
+html,body{overflow-x:hidden}
+.grid>*,.g2>*,.g3>*,.g4>*,.fld{min-width:0}
+.fld>input,.fld>select,.fld>textarea{width:100%;max-width:100%}
+label,.stitle,.chip,.tab,.hint,.note{overflow-wrap:break-word}
+@media(max-width:560px){.grid,.g2,.g3,.g4{grid-template-columns:1fr!important}
+.btn,.hbtn,.tab,.chip,button{white-space:normal}
+.appnav{flex-wrap:nowrap}
+.topbar{flex-wrap:wrap;height:auto;min-height:46px;padding-top:4px;padding-bottom:4px}}
+</style>
 
 <div id="authGate">
   <style>
@@ -263,6 +274,17 @@ tbody tr:hover{background:var(--bg2)}
 </style>
 </head>
 <body>
+<style>
+/* responsive safety net */
+html,body{overflow-x:hidden}
+.grid>*,.g2>*,.g3>*,.g4>*,.fld{min-width:0}
+.fld>input,.fld>select,.fld>textarea{width:100%;max-width:100%}
+label,.stitle,.chip,.tab,.hint,.note{overflow-wrap:break-word}
+@media(max-width:560px){.grid,.g2,.g3,.g4{grid-template-columns:1fr!important}
+.btn,.hbtn,.tab,.chip,button{white-space:normal}
+.appnav{flex-wrap:nowrap}
+.topbar{flex-wrap:wrap;height:auto;min-height:46px;padding-top:4px;padding-bottom:4px}}
+</style>
 <div class="wrap">
   <h1>기준 정보 등록</h1>
   <div class="sub">프로젝트·Component·Joint 기준정보(모재·개선·프로세스)를 등록합니다. Route Card가 이 기준을 불러와 실제값을 입력하고, 현황에서 이론 vs 실제를 비교합니다.</div>
@@ -730,6 +752,17 @@ th{font-size:11px;color:var(--text3);font-weight:700} td.ta{text-align:right;fon
 #report-print .rp-foot{margin-top:14px;color:#999;font-size:10px;text-align:right}
 </style></head>
 <body>
+<style>
+/* responsive safety net */
+html,body{overflow-x:hidden}
+.grid>*,.g2>*,.g3>*,.g4>*,.fld{min-width:0}
+.fld>input,.fld>select,.fld>textarea{width:100%;max-width:100%}
+label,.stitle,.chip,.tab,.hint,.note{overflow-wrap:break-word}
+@media(max-width:560px){.grid,.g2,.g3,.g4{grid-template-columns:1fr!important}
+.btn,.hbtn,.tab,.chip,button{white-space:normal}
+.appnav{flex-wrap:nowrap}
+.topbar{flex-wrap:wrap;height:auto;min-height:46px;padding-top:4px;padding-bottom:4px}}
+</style>
 <div class="wrap">
   <h1>현황 보기 — 이론 vs 실제</h1>
   <div class="sub">기준정보(이론)와 Route Card 실제값을 비교합니다. 기준정보는 ‘기준 정보 등록’, 실제값은 ‘Welding Route Card’에서 입력합니다.</div>
@@ -1791,6 +1824,17 @@ td.r{text-align:right}
 </style>
 </head>
 <body>
+<style>
+/* responsive safety net */
+html,body{overflow-x:hidden}
+.grid>*,.g2>*,.g3>*,.g4>*,.fld{min-width:0}
+.fld>input,.fld>select,.fld>textarea{width:100%;max-width:100%}
+label,.stitle,.chip,.tab,.hint,.note{overflow-wrap:break-word}
+@media(max-width:560px){.grid,.g2,.g3,.g4{grid-template-columns:1fr!important}
+.btn,.hbtn,.tab,.chip,button{white-space:normal}
+.appnav{flex-wrap:nowrap}
+.topbar{flex-wrap:wrap;height:auto;min-height:46px;padding-top:4px;padding-bottom:4px}}
+</style>
 
 <header>
   <h1><span class="logo">📋</span><span class="htitle">Welding <em>Route Card</em></span></h1>
@@ -6221,6 +6265,17 @@ function prjExportPDF(){
     @media print{ .noprint{ display:none } }
     .noprint{ position:fixed;top:10px;right:10px;background:#00843D;color:#fff;border:none;padding:9px 16px;border-radius:6px;font-size:13px;font-weight:700;cursor:pointer }
   </style></head><body>
+<style>
+/* responsive safety net */
+html,body{overflow-x:hidden}
+.grid>*,.g2>*,.g3>*,.g4>*,.fld{min-width:0}
+.fld>input,.fld>select,.fld>textarea{width:100%;max-width:100%}
+label,.stitle,.chip,.tab,.hint,.note{overflow-wrap:break-word}
+@media(max-width:560px){.grid,.g2,.g3,.g4{grid-template-columns:1fr!important}
+.btn,.hbtn,.tab,.chip,button{white-space:normal}
+.appnav{flex-wrap:nowrap}
+.topbar{flex-wrap:wrap;height:auto;min-height:46px;padding-top:4px;padding-bottom:4px}}
+</style>
   <button class="noprint" onclick="window.print()">🖨 ${tr('인쇄 / PDF 저장')}</button>
   <div class="hd">
     <div><h1>${esc(pj)||'Welding Deposit'}</h1><div class="sub">${tr('용착량·용접봉·맨파워 현황 리포트')}</div></div>
@@ -6578,6 +6633,17 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',Robo
 
 
 </style></head><body>
+<style>
+/* responsive safety net */
+html,body{overflow-x:hidden}
+.grid>*,.g2>*,.g3>*,.g4>*,.fld{min-width:0}
+.fld>input,.fld>select,.fld>textarea{width:100%;max-width:100%}
+label,.stitle,.chip,.tab,.hint,.note{overflow-wrap:break-word}
+@media(max-width:560px){.grid,.g2,.g3,.g4{grid-template-columns:1fr!important}
+.btn,.hbtn,.tab,.chip,button{white-space:normal}
+.appnav{flex-wrap:nowrap}
+.topbar{flex-wrap:wrap;height:auto;min-height:46px;padding-top:4px;padding-bottom:4px}}
+</style>
 <div class="mtoolbar"><span class="t">📖 <span>사용 설명서</span></span><button class="pri" onclick="window.print()">🖨 PDF</button></div>
 <div id="manual-doc"></div>
 <script>
