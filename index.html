@@ -77,9 +77,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',Robo
 html,body{overflow-x:hidden}
 .grid>*,.g2>*,.g3>*,.g4>*,.fld{min-width:0}
 .fld>input,.fld>select,.fld>textarea{width:100%;max-width:100%}
-label,.stitle,.chip,.tab,.hint,.note{overflow-wrap:break-word}
-@media(max-width:560px){.grid,.g2,.g3,.g4{grid-template-columns:1fr!important}
-.btn,.hbtn,.tab,.chip,button{white-space:normal}
+label,.hint,.note{overflow-wrap:break-word}
+.stitle{flex-wrap:wrap;row-gap:6px}
+@media(max-width:520px){.grid,.g2,.g3,.g4{grid-template-columns:1fr!important}
+.btn,.hbtn,.tab,button{white-space:nowrap}
+.stitle,.actbar,.tabs,.mtoolbar,.chips,.toolbar{flex-wrap:wrap}
 .appnav{flex-wrap:nowrap}
 .topbar{flex-wrap:wrap;height:auto;min-height:46px;padding-top:4px;padding-bottom:4px}}
 </style>
@@ -279,9 +281,11 @@ tbody tr:hover{background:var(--bg2)}
 html,body{overflow-x:hidden}
 .grid>*,.g2>*,.g3>*,.g4>*,.fld{min-width:0}
 .fld>input,.fld>select,.fld>textarea{width:100%;max-width:100%}
-label,.stitle,.chip,.tab,.hint,.note{overflow-wrap:break-word}
-@media(max-width:560px){.grid,.g2,.g3,.g4{grid-template-columns:1fr!important}
-.btn,.hbtn,.tab,.chip,button{white-space:normal}
+label,.hint,.note{overflow-wrap:break-word}
+.stitle{flex-wrap:wrap;row-gap:6px}
+@media(max-width:520px){.grid,.g2,.g3,.g4{grid-template-columns:1fr!important}
+.btn,.hbtn,.tab,button{white-space:nowrap}
+.stitle,.actbar,.tabs,.mtoolbar,.chips,.toolbar{flex-wrap:wrap}
 .appnav{flex-wrap:nowrap}
 .topbar{flex-wrap:wrap;height:auto;min-height:46px;padding-top:4px;padding-bottom:4px}}
 </style>
@@ -712,7 +716,7 @@ h1{font-size:21px;font-weight:850;letter-spacing:-.3px;margin-bottom:4px}
 .stitle{font-size:15px;font-weight:800;color:var(--accent2);margin-bottom:10px;display:flex;align-items:center;gap:8px}
 .btn{font:inherit;font-weight:700;font-size:13px;padding:7px 13px;border-radius:9px;border:1px solid var(--accent-bd);background:var(--accent-bg);color:var(--accent2);cursor:pointer}
 select{font:inherit;font-size:13px;height:34px;border:1px solid var(--border2);border-radius:9px;background:var(--field);color:var(--text);padding:0 10px}
-.chips{display:flex;gap:10px;flex-wrap:wrap}
+.chips{display:grid;grid-template-columns:repeat(auto-fit,minmax(112px,1fr));gap:10px;align-items:stretch}
 .chip{background:var(--accent-bg);border:1px solid var(--accent-bd);border-radius:var(--rs);padding:.45rem .8rem}
 .chip .l{font-size:10px;color:var(--text3)} .chip .v{font-size:15px;font-weight:800;color:var(--accent2)}
 table{width:100%;border-collapse:collapse;font-size:12.5px}
@@ -757,9 +761,11 @@ th{font-size:11px;color:var(--text3);font-weight:700} td.ta{text-align:right;fon
 html,body{overflow-x:hidden}
 .grid>*,.g2>*,.g3>*,.g4>*,.fld{min-width:0}
 .fld>input,.fld>select,.fld>textarea{width:100%;max-width:100%}
-label,.stitle,.chip,.tab,.hint,.note{overflow-wrap:break-word}
-@media(max-width:560px){.grid,.g2,.g3,.g4{grid-template-columns:1fr!important}
-.btn,.hbtn,.tab,.chip,button{white-space:normal}
+label,.hint,.note{overflow-wrap:break-word}
+.stitle{flex-wrap:wrap;row-gap:6px}
+@media(max-width:520px){.grid,.g2,.g3,.g4{grid-template-columns:1fr!important}
+.btn,.hbtn,.tab,button{white-space:nowrap}
+.stitle,.actbar,.tabs,.mtoolbar,.chips,.toolbar{flex-wrap:wrap}
 .appnav{flex-wrap:nowrap}
 .topbar{flex-wrap:wrap;height:auto;min-height:46px;padding-top:4px;padding-bottom:4px}}
 </style>
@@ -1829,9 +1835,11 @@ td.r{text-align:right}
 html,body{overflow-x:hidden}
 .grid>*,.g2>*,.g3>*,.g4>*,.fld{min-width:0}
 .fld>input,.fld>select,.fld>textarea{width:100%;max-width:100%}
-label,.stitle,.chip,.tab,.hint,.note{overflow-wrap:break-word}
-@media(max-width:560px){.grid,.g2,.g3,.g4{grid-template-columns:1fr!important}
-.btn,.hbtn,.tab,.chip,button{white-space:normal}
+label,.hint,.note{overflow-wrap:break-word}
+.stitle{flex-wrap:wrap;row-gap:6px}
+@media(max-width:520px){.grid,.g2,.g3,.g4{grid-template-columns:1fr!important}
+.btn,.hbtn,.tab,button{white-space:nowrap}
+.stitle,.actbar,.tabs,.mtoolbar,.chips,.toolbar{flex-wrap:wrap}
 .appnav{flex-wrap:nowrap}
 .topbar{flex-wrap:wrap;height:auto;min-height:46px;padding-top:4px;padding-bottom:4px}}
 </style>
@@ -2853,6 +2861,753 @@ recalc();
     }
     return s+'</svg>';
   }
+  /* ===== ported Welding Deposit Calculator cross-section (report) ===== */
+  var __rcCSfn=(function(){
+    var _RCCV=null, curJoint='ButtV', curTSub='single', curFilSide='single', _M={};
+    const ISO = {
+  ButtSquare: {sym:'‖',  name:'Square Butt (I형)',       std:'ISO 2553 / AWS A2.4',  desc:'루트 갭만으로 용접. 얇은 판(t≤6mm) 적용.'},
+  ButtV:      {sym:'▽',  name:'Single-V Butt (V형)',     std:'ISO 2553 symbol: ▽',   desc:'V형 개선. 중판(6~25mm). 용착량 많으나 변형 주의.'},
+  ButtBevel:  {sym:'⊳',  name:'Single Bevel (일면 개선)', std:'ISO 2553 symbol: ⊳',   desc:'한쪽만 개선 가공. 접근 어려운 부재에 적용.'},
+  ButtU:      {sym:'∪',  name:'Single-U Butt (U형)',     std:'ISO 2553 symbol: ∪',   desc:'U형 개선. 두꺼운 판(>25mm). V형 대비 용착량↓.'},
+  ButtJ:      {sym:'⌐',  name:'Single-J Butt (J형)',     std:'ISO 2553 symbol: ⌐',   desc:'J형 편측 개선. 용접 접근성 우수. 두꺼운 판.'},
+  ButtX:      {sym:'✕',  name:'Double-V Butt (X형)',     std:'ISO 2553 symbol: ✕',   desc:'양면 V형. 두꺼운 판. 변형 최소화 가능.'},
+  ButtK:      {sym:'⋈',  name:'Double Bevel (K형)',      std:'ISO 2553 symbol: ⋈',   desc:'양면 개선(Bevel). T-Joint 양면 개선에도 사용.'},
+  Fillet:     {sym:'△',  name:'Fillet Weld (필릿 용접)',  std:'ISO 2553 symbol: △',   desc:'직각 또는 T이음. 일면·양면, 각장(z1/z2) 별도 설정.'},
+  TJoint:     {sym:'⊥',  name:'T-Joint (Fillet)',        std:'ISO 2553',              desc:'T형 필릿 이음. 각도 팩터(Kθ=1/sinθ) 적용. 일면·양면.'},
+  TJointBevel:{sym:'⊳',  name:'T-Joint Single-Bevel',    std:'ISO 2553',              desc:'T이음 일면 개선. 가장 일반적. Kθ 적용.'},
+  TJointK:    {sym:'⋈',  name:'T-Joint Double-Bevel (K)', std:'ISO 2553',             desc:'T이음 양면 개선(K). 후판 완전용입. Kθ 적용.'},
+  TKY:        {sym:'⊳',  name:'Branch — Single-Bevel', std:'AWS D1.1',           desc:'관-관 분기 이음, brace 끝단 단면 bevel. 위치별 국부 이면각 Ψ 팩터 (β=OD₂/OD₁).'},
+  TKYDB:      {sym:'⋈',  name:'Branch — Double-Bevel', std:'AWS D1.1',           desc:'관-관 분기 이음, brace 끝단 양면 bevel(K). 위치별 Ψ 팩터 (β=OD₂/OD₁).'}
+}
+    function getC(){ return {plate:'#e9eef6',plateS:'#8fa1ba',hatch:'#d5dae2',wF:'rgba(0,132,61,.22)',wS:'#00843D',gF:'rgba(202,168,0,.35)',pF:'rgba(124,58,237,.18)',pS:'#7c3aed',dim:'#00843D',txt:'#515154',text:'#1d1d1f',warn:'#c77d11',warnBg:'rgba(230,150,30,.10)',frame:'#d2d2d7'}; }
+    function tr(x){ return x; }
+    function _G(id){ var m=_M; var G={'sqT':m.T,'vT':m.T,'bevT':m.T,'uT':m.T,'jT':m.T,'xT':m.T,'kT':m.T,'tgT':m.T,'buttT2':m.T2,'vAng':m.ang,'bevAng':m.ang,'uAng':m.ang,'jAng':m.ang,'xAng':m.ang,'kAng':m.ang,'tgAng':m.ang,'tkyAng':m.ang,'xRatio':m.ratio,'kRatio':m.ratio,'tgRatio':m.ratio,'uR':m.R,'jR':m.R,'filZ1':m.z1,'tFilZ1':m.z1,'tgFil':m.z1,'tkyFil':m.z1,'filZ2':m.z2,'tFilZ2':m.z2,'tgFil2':m.z2,'tAngle':m.tAngle,'tgTheta':(m.tAngle||m.ang),'tkyAngle':(m.tkyAngle||m.tAngle||m.ang),'tkyD':m.tkyD,'tkyd':m.tkyd,'tkyt':m.tkyt,'sqGap':m.gap,'vGap':m.gap,'bevGap':m.gap,'uGap':m.gap,'jGap':m.gap,'xGap':m.gap,'kGap':m.gap,'tGap':m.gap,'tgGap':m.gap,'filGap':m.gap,'tkyGap':m.gap,'tkyBraceGap':m.tkyBraceGap,'vRoot':m.root,'bevRoot':m.root,'uRoot':m.root,'jRoot':m.root,'xRoot':m.root,'kRoot':m.root,'tgRoot':m.root,'tkyRoot':m.root,'sqCap':m.cap,'vCap':m.cap,'bevCap':m.cap,'uCap':m.cap,'jCap':m.cap,'xCap':m.cap,'kCap':m.cap,'tCap':m.cap,'tgCap':m.cap}; return G[id]; }
+    function gv(id){ var v=parseFloat(_G(id)); return isNaN(v)?0:v; }
+    function gvz(id,def){ var v=parseFloat(_G(id)); return isNaN(v)?(def||0):v; }
+    function drawPreview(){
+  const cv=_RCCV; if(!cv) return;
+  const ctx=cv.getContext('2d');
+  const W=cv.width,H=cv.height; ctx.clearRect(0,0,W,H);
+  const C=getC(), cx=W/2, cy=H/2;
+
+  // 도면 외곽 프레임 (제도 시트 느낌)
+  ctx.strokeStyle=C.frame; ctx.lineWidth=1;
+  ctx.strokeRect(4.5,4.5,W-9,H-9);
+
+  // helpers
+  function fillStroke(fill,stroke){ ctx.fillStyle=fill; ctx.strokeStyle=stroke; ctx.lineWidth=1.6; ctx.fill(); ctx.stroke(); }
+  function lbl(t,x,y,col){ ctx.fillStyle=col||C.txt; ctx.font='10.5px ui-monospace,SFMono-Regular,Consolas,monospace'; ctx.fillText(t,x,y); }
+  function tag(t){
+    // 생산도면 타이틀 블록 (하단 스트립): DETAIL — 명칭 | N.T.S.
+    ctx.strokeStyle=C.frame; ctx.lineWidth=1;
+    ctx.beginPath(); ctx.moveTo(4.5,H-24.5); ctx.lineTo(W-4.5,H-24.5); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(W-56,H-24.5); ctx.lineTo(W-56,H-4.5); ctx.stroke();
+    ctx.fillStyle=C.dim; ctx.font='700 10px ui-monospace,SFMono-Regular,Consolas,monospace';
+    ctx.fillText('DETAIL',12,H-10);
+    ctx.fillStyle=C.txt; ctx.font='10.5px ui-monospace,SFMono-Regular,Consolas,monospace';
+    ctx.fillText(t,58,H-10);
+    ctx.fillStyle=C.txt; ctx.font='10px ui-monospace,SFMono-Regular,Consolas,monospace';
+    ctx.fillText('N.T.S.',W-48,H-10);
+  }
+  function info(t){ lbl(t,10,H-32); }
+
+  // 덧살을 weld 외곽선에 합치기 위한 보조: p→q 면의 2차 베지어 제어점을 반환.
+  // capS>0 이면 interior 반대(바깥)로 볼록, capS<0 이면 안쪽(오목)으로. SV처럼 경계선 없이 합쳐짐.
+  function faceCtrl(p,q,interior,capS){
+    const mx=(p.x+q.x)/2, my=(p.y+q.y)/2;
+    if(!capS) return {x:mx,y:my};
+    let nx=-(q.y-p.y), ny=(q.x-p.x);
+    const L=Math.hypot(nx,ny)||1; nx/=L; ny/=L;
+    if((mx-interior.x)*nx+(my-interior.y)*ny<0){ nx=-nx; ny=-ny; }
+    return {x:mx+nx*capS, y:my+ny*capS};
+  }
+
+  // Compute a scale that fits thickness T into the canvas vertical budget.
+  // Returns {sc, ht, top, bot} where top/bot are y-coords of plate inner faces.
+  function vScale(T,frac){
+    frac = frac||0.56;
+    const sc = Math.min((H*frac)/T, 11);
+    const ht = T*sc;
+    return { sc, ht, top: cy-ht/2, bot: cy+ht/2 };
+  }
+  // Draw the two horizontal plates (butt joint, gap centered on cx)
+  function buttPlates(top,bot,gS){
+    const pW=(W*0.78)/2 - gS;          // each plate width
+    const pLx=cx-gS-pW, pRx=cx+gS;
+    ctx.fillStyle=C.plate; ctx.strokeStyle=C.plateS; ctx.lineWidth=0.9;
+    // left/right are actually upper/lower halves in a cross-section view → draw as left & right blocks
+    // We draw plates to LEFT and RIGHT of the weld centerline (standard butt cross-section is horizontal plates meeting vertically)
+  }
+
+  const jt=curJoint;
+
+  // ════════════════════════════════════════════════
+  //  BUTT JOINTS  (cross-section: two plates meet at a
+  //  vertical seam centred on cx; thickness is vertical)
+  //  Plates drawn as filled rectangles left & right;
+  //  groove is the void between them, weld fills it.
+  // ════════════════════════════════════════════════
+  // Standard model: plate spans full width, thickness vertical.
+  // Weld prep removes material symmetric about cx.
+  // top = upper face, bot = lower face.
+
+  function drawButtPlatesV(top,bot,leftEdgeFn,rightEdgeFn,sc){
+    // leftEdgeFn(y) -> x of the right boundary of the LEFT plate at height y
+    // rightEdgeFn(y) -> x of the left boundary of the RIGHT plate at height y
+    // sc (optional): px-per-mm; enables dissimilar-thickness rendering (right plate thicker by ΔT)
+    const pad=W*0.10;
+    let dTop=0, dBot=0;
+    if(sc && document.getElementById('buttDiff')?.checked){
+      const T1=(bot-top)/sc, T2=gv('buttT2')||T1;
+      const center=(document.getElementById('buttDiffAlign')?.value==='center');
+      const dS=Math.abs(T2-T1)*sc;
+      if(center){ dTop=Math.min(dS/2, Math.max(0,top-10)); dBot=Math.min(dS/2, Math.max(0,H-30-bot)); }
+      else      { dTop=Math.min(dS,   Math.max(0,top-10)); }
+    }
+    ctx.fillStyle=C.hatch; ctx.strokeStyle=C.plateS; ctx.lineWidth=1;
+    // LEFT plate (thinner reference, T₁)
+    ctx.beginPath();
+    ctx.moveTo(pad, top);
+    ctx.lineTo(leftEdgeFn(top), top);
+    // walk down the prepared edge
+    const steps=24;
+    for(let i=0;i<=steps;i++){ const y=top+(bot-top)*i/steps; ctx.lineTo(leftEdgeFn(y), y); }
+    ctx.lineTo(pad, bot);
+    ctx.closePath(); ctx.fill(); ctx.stroke();
+    // RIGHT plate (top raised by dTop / bottom extended by dBot when 이종 두께)
+    const xs=rightEdgeFn(top);
+    const xb=rightEdgeFn(bot);
+    ctx.beginPath();
+    ctx.moveTo(W-pad, top-dTop);
+    ctx.lineTo(xs, top-dTop);
+    for(let i=0;i<=steps;i++){ const y=top+(bot-top)*i/steps; ctx.lineTo(rightEdgeFn(y), y); }
+    if(dBot>0) ctx.lineTo(xb, bot+dBot);
+    ctx.lineTo(W-pad, bot+dBot);
+    ctx.closePath(); ctx.fill(); ctx.stroke();
+    // 단차 천이 필릿 (45°)
+    ctx.fillStyle=C.wF; ctx.strokeStyle=C.wS; ctx.lineWidth=1.6;
+    if(dTop>2){
+      ctx.beginPath();
+      ctx.moveTo(xs, top-dTop);        // step top
+      ctx.lineTo(xs, top);             // down the step face
+      ctx.lineTo(xs-dTop, top);        // out along the thinner-plate surface
+      ctx.closePath(); ctx.fill(); ctx.stroke();
+      lbl('ΔT'+(dBot>0?'/2':'')+' '+tr('천이 필릿'), xs+6, top-dTop+4, C.wS);
+    }
+    if(dBot>2){
+      ctx.beginPath();
+      ctx.moveTo(xb, bot+dBot);        // step bottom (아랫면)
+      ctx.lineTo(xb, bot);             // up the step face
+      ctx.lineTo(xb-dBot, bot);        // out along the thinner-plate bottom surface
+      ctx.closePath(); ctx.fill(); ctx.stroke();
+    }
+  }
+
+  // ── Square (I) ──
+  if(jt==='ButtSquare'){
+    const T=gv('sqT')||6, gap=gvz('sqGap',2), cap=gvz('sqCap',1);
+    const {ht,top,bot}=vScale(T,0.5);
+    const sc=ht/T, gS=gap>0?Math.max(gap*sc/2,2):0;
+    drawButtPlatesV(top,bot, ()=>cx-gS, ()=>cx+gS, sc);
+    // weld = gap column + 덧살 보강 비드를 하나의 외곽선으로 합침 (경계선 없음, gap=0이어도 표시)
+    const capS=cap>0?Math.max(cap*sc,3):0, halfW=cap>0?Math.max(gS+capS,5):gS;
+    ctx.beginPath();
+    if(cap>0){
+      ctx.moveTo(cx-halfW, top);
+      ctx.quadraticCurveTo(cx, top-capS*1.6, cx+halfW, top);  // 상단 보강 곡선
+      ctx.lineTo(cx+gS, top);                                  // toe → 기둥 우상단
+    } else {
+      ctx.moveTo(cx-gS, top);
+      ctx.lineTo(cx+gS, top);
+    }
+    ctx.lineTo(cx+gS, bot);                                    // 우측 기둥
+    ctx.lineTo(cx-gS, bot);                                    // 하단
+    ctx.lineTo(cx-gS, top);                                    // 좌측 기둥
+    ctx.closePath();
+    fillStroke(C.wF,C.wS);
+    tag(tr('Square Butt (I형)'));
+    info(`T=${T}mm  g=${gap}mm  cap=${cap}mm`);
+  }
+
+  // ── Single-V ──
+  else if(jt==='ButtV'){
+    const T=gv('vT')||16, ang=gv('vAng')||60, root=gvz('vRoot',0), gap=gvz('vGap',2), cap=gvz('vCap',1.5);
+    const {ht,top,bot}=vScale(T);
+    const sc=ht/T, rS=root*sc, gS=gap>0?Math.max(gap*sc/2,1.5):0, capS=cap*sc, ha=deg2rad(ang/2);
+    const bevelDepth=ht-rS;
+    const wHalf=bevelDepth*Math.tan(ha);
+    const left=(y)=>{ if(y<=top+bevelDepth){ const t=(y-top)/bevelDepth; return cx-gS-wHalf*(1-t);} return cx-gS; };
+    const right=(y)=>{ if(y<=top+bevelDepth){ const t=(y-top)/bevelDepth; return cx+gS+wHalf*(1-t);} return cx+gS; };
+    drawButtPlatesV(top,bot,left,right,sc);
+    ctx.beginPath();
+    ctx.moveTo(cx-gS-wHalf, top);
+    ctx.lineTo(cx-gS, top+bevelDepth);
+    ctx.lineTo(cx-gS, bot);
+    ctx.lineTo(cx+gS, bot);
+    ctx.lineTo(cx+gS, top+bevelDepth);
+    ctx.lineTo(cx+gS+wHalf, top);
+    ctx.quadraticCurveTo(cx, top-capS, cx-gS-wHalf, top);
+    ctx.closePath();
+    fillStroke(C.wF,C.wS);
+    if(gap>0){ ctx.fillStyle=C.gF; ctx.fillRect(cx-gS,top+bevelDepth,gS*2,rS); }
+    tag(tr('Single-V (V형)')); info(`T=${T}mm  2α=${ang}°  r=${root}  g=${gap}mm`);
+  }
+
+  // ── Single Bevel ──
+  else if(jt==='ButtBevel'){
+    const T=gv('bevT')||16, ang=gv('bevAng')||45, root=gvz('bevRoot',0), gap=gvz('bevGap',2), cap=gvz('bevCap',1.5);
+    const {ht,top,bot}=vScale(T,0.52);
+    const sc=ht/T, rS=root*sc, gS=gap>0?Math.max(gap*sc/2,1.5):0, ha=deg2rad(ang);
+    const bevelDepth=ht-rS;
+    const wRight=bevelDepth*Math.tan(ha);   // only the RIGHT plate is bevelled
+    const left=()=>cx-gS;
+    const right=(y)=>{ if(y<=top+bevelDepth){ const t=(y-top)/bevelDepth; return cx+gS+wRight*(1-t);} return cx+gS; };
+    drawButtPlatesV(top,bot,left,right,sc);
+    const bevCapS=cap*sc;
+    ctx.beginPath();
+    ctx.moveTo(cx-gS, top);
+    ctx.lineTo(cx-gS, bot);
+    ctx.lineTo(cx+gS, bot);
+    ctx.lineTo(cx+gS, top+bevelDepth);
+    ctx.lineTo(cx+gS+wRight, top);              // 상부 우측 toe
+    // 덧살: 상부 면을 곡선으로 합침 (양수 볼록 위로, 음수 오목 아래로)
+    ctx.quadraticCurveTo((cx-gS+cx+gS+wRight)/2, top-bevCapS, cx-gS, top);
+    ctx.closePath();
+    fillStroke(C.wF,C.wS);
+    if(gap>0 && rS>0){ ctx.fillStyle=C.gF; ctx.fillRect(cx-gS,top+bevelDepth,gS*2,rS); }
+    tag('Single Bevel'); info(`T=${T}mm  α=${ang}°  r=${root}  g=${gap}  cap=${cap}mm`);
+  }
+
+  // ── Single-U ──
+  else if(jt==='ButtU'){
+    const T=gv('uT')||25, R=gv('uR')||6, ang=gv('uAng')||10, root=gvz('uRoot',0), gap=gvz('uGap',2), cap=gvz('uCap',1.5);
+    const {ht,top,bot}=vScale(T,0.56);
+    const sc=ht/T, RS=R*sc, rS=root*sc, gS=gap>0?Math.max(gap*sc/2,1.5):0, ha=deg2rad(ang);
+    // U profile: straight slightly-tapered sidewalls from top down to (top + sideH),
+    // then quarter-radius curving in to the root face, root face rS tall at bottom.
+    const sideH=Math.max(0, ht - rS - RS);
+    const topHalf=gS + RS + sideH*Math.tan(ha);   // half-width at the very top face
+    const left=(y)=>{
+      const yy=y-top;
+      if(yy<=sideH){ return cx - (gS+RS+ (sideH-yy)*Math.tan(ha)); }            // tapered sidewall
+      if(yy<=sideH+RS){ const dy=yy-sideH; const dx=RS*Math.cos(Math.asin(Math.min(1,dy/RS))); return cx-gS-dx; } // quarter radius (monotonic)
+      return cx-gS;                                                              // root face
+    };
+    const right=(y)=>{ return 2*cx - left(y); };
+    drawButtPlatesV(top,bot,left,right,sc);
+    // weld fills the void
+    const uCapS=cap*sc;
+    ctx.beginPath();
+    ctx.moveTo(left(top), top);
+    const steps=28;
+    for(let i=0;i<=steps;i++){ const y=top+(bot-top)*i/steps; ctx.lineTo(left(y), y); }
+    ctx.lineTo(cx+gS, bot);
+    for(let i=steps;i>=0;i--){ const y=top+(bot-top)*i/steps; ctx.lineTo(right(y), y); }
+    // 덧살: 상부 면 곡선으로 합침 (right(top) → left(top))
+    ctx.quadraticCurveTo(cx, top-uCapS, left(top), top);
+    ctx.closePath();
+    fillStroke(C.wF,C.wS);
+    if(gap>0){ ctx.fillStyle=C.gF; ctx.fillRect(cx-gS,bot-rS,gS*2,rS); }
+    tag(tr('Single-U (U형)')); info(`T=${T}  R=${R}  r=${root}  g=${gap}  cap=${cap}mm`);
+  }
+
+  // ── Single-J ──
+  else if(jt==='ButtJ'){
+    const T=gv('jT')||20, R=gv('jR')||5, ang=gv('jAng')||10, root=gvz('jRoot',0), gap=gvz('jGap',2), cap=gvz('jCap',1.5);
+    const {ht,top,bot}=vScale(T,0.56);
+    const sc=ht/T, RS=R*sc, rS=root*sc, gS=gap>0?Math.max(gap*sc/2,1.5):0, ha=deg2rad(ang);
+    const sideH=Math.max(0, ht - rS - RS);
+    // J: only RIGHT plate is prepared (curved); LEFT plate straight vertical
+    const left=()=>cx-gS;
+    const right=(y)=>{
+      const yy=y-top;
+      if(yy<=sideH){ return cx + (gS+RS+(sideH-yy)*Math.tan(ha)); }
+      if(yy<=sideH+RS){ const dy=yy-sideH; const dx=RS*Math.cos(Math.asin(Math.min(1,dy/RS))); return cx+gS+dx; }
+      return cx+gS;
+    };
+    drawButtPlatesV(top,bot,left,right,sc);
+    const jCapS=cap*sc;
+    ctx.beginPath();
+    ctx.moveTo(cx-gS, top);
+    ctx.lineTo(cx-gS, bot);
+    ctx.lineTo(cx+gS, bot);
+    const steps=28;
+    for(let i=steps;i>=0;i--){ const y=top+(bot-top)*i/steps; ctx.lineTo(right(y), y); }
+    // 덧살: 상부 면 곡선으로 합침 (right(top) → cx-gS)
+    ctx.quadraticCurveTo((cx-gS+right(top))/2, top-jCapS, cx-gS, top);
+    ctx.closePath();
+    fillStroke(C.wF,C.wS);
+    if(gap>0){ ctx.fillStyle=C.gF; ctx.fillRect(cx-gS,bot-rS,gS*2,rS); }
+    tag(tr('Single-J (J형)')); info(`T=${T}  R=${R}  r=${root}  g=${gap}  cap=${cap}mm`);
+  }
+
+  // ── Double-V (X) ──
+  else if(jt==='ButtX'){
+    const T=gv('xT')||30, ang=gv('xAng')||60, root=gvz('xRoot',0), gap=gvz('xGap',2), ratio=(gv('xRatio')||60)/100, cap=gvz('xCap',1.5);
+    const {ht,top,bot}=vScale(T,0.56);
+    const sc=ht/T, rS=root*sc, gS=gap>0?Math.max(gap*sc/2,1.5):0, ha=deg2rad(ang/2);
+    // root face centred; upper bevel depth h1, lower bevel depth h2
+    const usable=ht-rS;
+    const h1=usable*ratio, h2=usable*(1-ratio);
+    const rootTop=top+h1, rootBot=rootTop+rS;   // root face band
+    const w1=h1*Math.tan(ha), w2=h2*Math.tan(ha);
+    const left=(y)=>{
+      if(y<rootTop){ const t=(rootTop-y)/h1; return cx-gS-w1*t; }       // upper bevel
+      if(y<=rootBot){ return cx-gS; }                                    // root face
+      const t=(y-rootBot)/h2; return cx-gS-w2*t;                         // lower bevel
+    };
+    const right=(y)=>2*cx-left(y);
+    drawButtPlatesV(top,bot,left,right,sc);
+    // weld = void, 덧살을 상·하부 면에 곡선으로 합침
+    const xCapS=cap*sc;
+    ctx.beginPath();
+    ctx.moveTo(left(top),top);
+    const steps=30;
+    for(let i=0;i<=steps;i++){ const y=top+(bot-top)*i/steps; ctx.lineTo(left(y),y); }   // 좌측 하강, left(bot)에서 끝
+    ctx.quadraticCurveTo(cx, bot+xCapS, right(bot), bot);                                  // 하부 면 (아래로 볼록)
+    for(let i=steps-1;i>=0;i--){ const y=top+(bot-top)*i/steps; ctx.lineTo(right(y),y); }  // 우측 상승, right(top)에서 끝
+    ctx.quadraticCurveTo(cx, top-xCapS, left(top), top);                                   // 상부 면 (위로 볼록)
+    ctx.closePath();
+    fillStroke(C.wF,C.wS);
+    if(gap>0){ ctx.fillStyle=C.gF; ctx.fillRect(cx-gS,rootTop,gS*2,rS); }
+    tag(tr('Double-V (X형)')); info(`T=${T}mm  2α=${ang}°  ${tr('상부')} ${Math.round(ratio*100)}%  cap=${cap}mm`);
+  }
+
+  // ── Double Bevel (K) ──
+  else if(jt==='ButtK'){
+    const T=gv('kT')||30, ang=gv('kAng')||45, root=gvz('kRoot',0), gap=gvz('kGap',2), ratio=(gv('kRatio')||60)/100, cap=gvz('kCap',1.5);
+    const {ht,top,bot}=vScale(T,0.56);
+    const sc=ht/T, rS=root*sc, gS=gap>0?Math.max(gap*sc/2,1.5):0, ha=deg2rad(ang);
+    const usable=ht-rS;
+    const h1=usable*ratio, h2=usable*(1-ratio);
+    const rootTop=top+h1, rootBot=rootTop+rS;
+    const w1=h1*Math.tan(ha), w2=h2*Math.tan(ha);
+    // only RIGHT plate bevelled (double bevel = both bevels on one member)
+    const left=()=>cx-gS;
+    const right=(y)=>{
+      if(y<rootTop){ const t=(rootTop-y)/h1; return cx+gS+w1*t; }
+      if(y<=rootBot){ return cx+gS; }
+      const t=(y-rootBot)/h2; return cx+gS+w2*t;
+    };
+    drawButtPlatesV(top,bot,left,right,sc);
+    const kCapS=cap*sc;
+    ctx.beginPath();
+    ctx.moveTo(cx-gS,top);
+    ctx.lineTo(cx-gS,bot);                                                                 // 좌측 직선면, (cx-gS,bot)
+    ctx.quadraticCurveTo((cx-gS+cx+gS+w2)/2, bot+kCapS, cx+gS+w2, bot);                     // 하부 면 (아래로 볼록)
+    const steps=30;
+    for(let i=steps-1;i>=0;i--){ const y=top+(bot-top)*i/steps; ctx.lineTo(right(y),y); }  // 우측 상승, right(top)=cx+gS+w1
+    ctx.quadraticCurveTo((cx-gS+cx+gS+w1)/2, top-kCapS, cx-gS, top);                        // 상부 면 (위로 볼록)
+    ctx.closePath();
+    fillStroke(C.wF,C.wS);
+    if(gap>0){ ctx.fillStyle=C.gF; ctx.fillRect(cx-gS,rootTop,gS*2,rS); }
+    tag(tr('Double Bevel (K형)')); info(`T=${T}mm  α=${ang}°  ${tr('상부')} ${Math.round(ratio*100)}%  cap=${cap}mm`);
+  }
+
+  // ════════════════════════════════════════════════
+  //  FILLET  (T-configuration: vertical web on a
+  //  horizontal base; fillet triangles in the corners)
+  // ════════════════════════════════════════════════
+  else if(jt==='Fillet'){
+    const z1=gv('filZ1')||8, z2=(curFilSide==='double'?(gv('filZ2')||8):0), gap=gvz('filGap',0);
+    const maxZ=Math.max(z1,z2,1);
+    const sc=Math.min((H*0.34)/maxZ, 14);
+    const z1S=z1*sc, z2S=z2*sc;
+    const baseY=cy+30, webX=cx, webW=14;
+    const pad=W*0.14;
+    // base plate (horizontal)
+    ctx.fillStyle=C.plate; ctx.strokeStyle=C.plateS; ctx.lineWidth=0.9;
+    ctx.fillRect(pad, baseY, W-2*pad, 16); ctx.strokeRect(pad, baseY, W-2*pad, 16);
+    // web (vertical)
+    const webH=Math.max(z1S,z2S)*1.6+18;
+    ctx.fillRect(webX-webW/2, baseY-webH, webW, webH);
+    ctx.strokeRect(webX-webW/2, baseY-webH, webW, webH);
+    // right fillet (z1)
+    ctx.beginPath();
+    ctx.moveTo(webX+webW/2, baseY);
+    ctx.lineTo(webX+webW/2+z1S, baseY);
+    ctx.lineTo(webX+webW/2, baseY-z1S);
+    ctx.closePath(); fillStroke(C.wF,C.wS);
+    // left fillet (z2) if double
+    if(curFilSide==='double'){
+      ctx.beginPath();
+      ctx.moveTo(webX-webW/2, baseY);
+      ctx.lineTo(webX-webW/2-z2S, baseY);
+      ctx.lineTo(webX-webW/2, baseY-z2S);
+      ctx.closePath(); fillStroke(C.wF,C.wS);
+    }
+    if(gap>0){ const gS=Math.min(gap*sc,10); ctx.fillStyle=C.gF; ctx.fillRect(webX-webW/2,baseY,webW,gS); }
+    // throat dimension hint on z1
+    ctx.save(); ctx.strokeStyle=C.dim; ctx.lineWidth=0.8; ctx.setLineDash([3,2]);
+    ctx.beginPath(); ctx.moveTo(webX+webW/2, baseY-z1S); ctx.lineTo(webX+webW/2+z1S, baseY); ctx.stroke();
+    ctx.restore();
+    tag('Fillet '+(curFilSide==='double'?tr('(양면 Double)'):tr('(일면 Single)')));
+    info(`z₁=${z1}${z2?'  z₂='+z2:''}mm  g=${gap}mm`);
+  }
+
+  // ════════════════════════════════════════════════
+  //  T-JOINT  (angled web; fillet legs; optional PJP)
+  // ════════════════════════════════════════════════
+  else if(jt==='TJoint'){
+    const z1=gv('tFilZ1')||8, z2=(curTSub!=='single'?(gv('tFilZ2')||8):0);
+    const gap=gvz('tGap',0), theta=gv('tAngle')||90, cap=gvz('tCap',0);
+    const maxZ=Math.max(z1,z2,1);
+    const sc=Math.min((H*0.30)/maxZ, 12);
+    const z1S=z1*sc, z2S=z2*sc;
+    const baseY=cy+40, pad=W*0.12, webW=14, webLen=Math.min(H*0.5,118);
+    // base plate (단면 해칭)
+    ctx.fillStyle=C.hatch; ctx.strokeStyle=C.plateS; ctx.lineWidth=1;
+    ctx.fillRect(pad, baseY, W-2*pad, 16); ctx.strokeRect(pad, baseY, W-2*pad, 16);
+    // ── inclined web (parallelogram, feet on the base surface) ──
+    const th=deg2rad(theta);
+    const ux=Math.cos(th), uy=-Math.sin(th);             // web axis (up; tilts right when θ<90)
+    const nx=Math.sin(th), ny=Math.cos(th);              // perpendicular
+    const hw=webW/2;
+    // wall base points ON the base line (same math as the TKY brace feet)
+    function basePt(s){ const t=-(s*hw*ny)/uy; return {x:cx+s*hw*nx+t*ux, y:baseY}; }
+    const B1=basePt(+1), B2=basePt(-1);                  // B1 = +n side (right/obtuse), B2 = −n side (left/acute)
+    const T1={x:B1.x+ux*webLen, y:B1.y+uy*webLen};
+    const T2={x:B2.x+ux*webLen, y:B2.y+uy*webLen};
+    ctx.fillStyle=C.hatch; ctx.strokeStyle=C.plateS; ctx.lineWidth=1;
+    ctx.beginPath();
+    ctx.moveTo(B1.x,B1.y); ctx.lineTo(T1.x,T1.y); ctx.lineTo(T2.x,T2.y); ctx.lineTo(B2.x,B2.y);
+    ctx.closePath(); ctx.fill(); ctx.stroke();
+    // ── fillets follow the web walls: leg z along base + leg z UP THE WALL (axis dir) ──
+    // 덧살 cap: 필릿 빗변(toe→wall)을 곡선으로 합쳐 볼록(+)/오목(−) 표현. 음수면 면적 감소.
+    const tCapS=cap*sc;
+    // right-side fillet (z1): toe outward on base, leg up the wall from B1
+    { const toe={x:B1.x+z1S,y:baseY}, wall={x:B1.x+ux*z1S,y:baseY+uy*z1S};
+      const c=faceCtrl(toe,wall,B1,tCapS);
+      ctx.beginPath();
+      ctx.moveTo(B1.x, baseY);
+      ctx.lineTo(toe.x, toe.y);                            // toe along base (outward)
+      ctx.quadraticCurveTo(c.x,c.y, wall.x,wall.y);        // 빗변(덧살 합침)
+      ctx.closePath(); fillStroke(C.wF,C.wS);
+    }
+    // left-side fillet (z2) for double
+    if(curTSub!=='single' && z2){
+      const toe={x:B2.x-z2S,y:baseY}, wall={x:B2.x+ux*z2S,y:baseY+uy*z2S};
+      const c=faceCtrl(toe,wall,B2,tCapS);
+      ctx.beginPath();
+      ctx.moveTo(B2.x, baseY);
+      ctx.lineTo(toe.x, toe.y);
+      ctx.quadraticCurveTo(c.x,c.y, wall.x,wall.y);
+      ctx.closePath(); fillStroke(C.wF,C.wS);
+    }
+    if(gap>0){ ctx.fillStyle=C.gF; ctx.fillRect(Math.min(B1.x,B2.x), baseY-2, Math.abs(B1.x-B2.x), 3); }
+    // θ arc annotation at the right foot
+    ctx.save(); ctx.strokeStyle=C.dim; ctx.lineWidth=1; ctx.setLineDash([3,3]);
+    ctx.beginPath(); ctx.moveTo(B1.x+4,baseY); ctx.lineTo(B1.x+52,baseY); ctx.stroke();   // base ref
+    ctx.setLineDash([]);
+    ctx.beginPath(); ctx.arc(B1.x, baseY, 30, -th, 0); ctx.stroke();                       // angle arc
+    ctx.restore();
+    lbl(`θ=${theta}°  Kθ=${rnd(1/Math.sin(th),3)}`, B1.x+58, baseY-10, C.dim);
+    tag('T-Joint Fillet  z₁='+z1+(z2?'  z₂='+z2:''));
+    info(theta<90?tr('경사 T이음 — 예각측 용착량 증가 (Kθ 적용)'):tr('직각 T이음'));
+  }
+
+  // ── T-Joint with groove prep (V/X/Bevel/K) ──
+  else if(jt==='TJointBevel'||jt==='TJointK'){
+    const T=gv('tgT')||16, ang=gv('tgAng')||45, root=gvz('tgRoot',0), gap=gvz('tgGap',2);
+    const ratio=(gv('tgRatio')||60)/100, fil=gvz('tgFil',0), fil2=gvz('tgFil2',0), theta=gv('tgTheta')||90, cap=gvz('tgCap',0);
+    const isK=(jt==='TJointK');
+    const pad=W*0.12;
+    // Member THICKNESS T runs horizontally in the cross-section.
+    // Scale must also fit the notch rise h·tan(α) vertically.
+    const hMM=(T-root);
+    const riseMM=hMM*Math.tan(deg2rad(ang))*(isK?Math.max(ratio,1-ratio):1);
+    const baseTop=cy+H*0.18;                      // top surface of base plate
+    const kS=Math.abs(1/Math.tan(deg2rad(theta||90)));
+    let memHmax=Math.min(H*0.56, baseTop-48);                                   // 상단 라벨 보호
+    if(kS>0.05) memHmax=Math.min(memHmax, Math.max(40,(W-110-cx)/kS));          // shear 우측 프레임 보호
+    let sc=Math.min((W*0.28)/T, (H*0.40)/Math.max(riseMM, T*0.8), 9);
+    sc=Math.min(sc, Math.max(0.8,(memHmax-22)/Math.max(riseMM,1)));             // 노치가 부재 안에 들도록 스케일 축소
+    const memW=T*sc;                              // member thickness on screen (horizontal)
+    const baseH=Math.max(14, Math.min(memW*0.45, H-40-baseTop));                // info 라인 보호
+    let memH=Math.min(memHmax, Math.max(riseMM*sc+22, memW*1.5));
+    const memX=cx-memW/2, rightX=memX+memW;       // member left/right faces
+    const memTopY=baseTop-memH;
+    const gS=Math.max(gap*sc,0), rootS=root*sc;
+    const ha=deg2rad(ang);
+
+    // base plate (단면 해칭)
+    ctx.fillStyle=C.hatch; ctx.strokeStyle=C.plateS; ctx.lineWidth=1;
+    ctx.fillRect(pad, baseTop, W-2*pad, baseH); ctx.strokeRect(pad, baseTop, W-2*pad, baseH);
+
+    // θ 기울임: shear 변환 (바닥 y=baseTop 고정, 위로 갈수록 cotθ 만큼 이동 → 부재 축이 θ)
+    const kSh=1/Math.tan(deg2rad(theta));
+    ctx.save(); ctx.transform(1,0,-kSh,1,kSh*baseTop,0);
+
+    // ---- upright member: bottom END prepared (bevel cut through the THICKNESS) ----
+    // Single bevel (HV): root face of width `root` stays flat (left side);
+    //   the remaining thickness h=T-root is cut: notch rises on the right face
+    //   to height h·tan(α).  Double bevel (K): notches cut from BOTH faces,
+    //   root face land of width `root` in the middle.
+    const memBot=baseTop-gS;                       // bottom edge (lifted by root gap)
+    ctx.fillStyle=C.hatch; ctx.strokeStyle=C.plateS; ctx.lineWidth=1;
+    ctx.beginPath();
+    if(!isK){
+      const h=(T-root)*sc;                        // bevel width through thickness
+      const rise=h*Math.tan(ha);                  // notch height on the right face
+      ctx.moveTo(memX, memTopY);                  // top-left
+      ctx.lineTo(rightX, memTopY);                // top-right
+      ctx.lineTo(rightX, memBot-rise);            // down right face to notch top
+      ctx.lineTo(memX+rootS, memBot);             // bevel face down-left to root-face edge
+      ctx.lineTo(memX, memBot);                   // root face (flat bottom, left part)
+      ctx.closePath();
+    } else {
+      const h1=(T-root)*ratio*sc, h2=(T-root)*(1-ratio)*sc;
+      const rise1=h1*Math.tan(ha), rise2=h2*Math.tan(ha);
+      // left notch (h2 side), root land in middle, right notch (h1 side)
+      ctx.moveTo(memX, memTopY);
+      ctx.lineTo(rightX, memTopY);
+      ctx.lineTo(rightX, memBot-rise1);           // right face down to right-notch top
+      ctx.lineTo(rightX-h1, memBot);              // right bevel to root land
+      ctx.lineTo(memX+h2, memBot);                // root face land (flat)
+      ctx.lineTo(memX, memBot-rise2);             // left bevel up to left face
+      ctx.closePath();
+    }
+    ctx.fill(); ctx.stroke();
+
+    // ---- weld fills the notch(es) + reinforcing fillet(s) ----
+    // 덧살 cap: 용접 외측 면(B→C)을 곡선으로 합쳐 볼록(+)/오목(−). 음수면 용착부 감소.
+    ctx.fillStyle=C.wF; ctx.strokeStyle=C.wS; ctx.lineWidth=1.8;
+    const fS=fil>0?fil*sc:Math.min(memW*0.45, 26);
+    const tgCapS=cap*sc, tgCtr={x:cx,y:baseTop};
+    if(!isK){
+      const h=(T-root)*sc, rise=h*Math.tan(ha);
+      const B={x:rightX,y:memBot-rise}, Cc={x:rightX+fS,y:baseTop};
+      const cc=faceCtrl(B,Cc,tgCtr,tgCapS);
+      ctx.beginPath();
+      ctx.moveTo(memX+rootS, memBot);             // root-face edge (notch inner corner)
+      ctx.lineTo(B.x, B.y);                        // up the bevel face
+      ctx.quadraticCurveTo(cc.x,cc.y, Cc.x,Cc.y);  // 외측 면 (덧살 합침) → fillet toe
+      ctx.lineTo(memX+rootS, baseTop);            // along base surface back under the notch
+      ctx.closePath(); fillStroke(C.wF,C.wS);
+    } else {
+      const h1=(T-root)*ratio*sc, h2=(T-root)*(1-ratio)*sc;
+      const rise1=h1*Math.tan(ha), rise2=h2*Math.tan(ha);
+      // right-side weld
+      { const B={x:rightX,y:memBot-rise1}, Cc={x:rightX+fS,y:baseTop};
+        const cc=faceCtrl(B,Cc,tgCtr,tgCapS);
+        ctx.beginPath();
+        ctx.moveTo(rightX-h1, memBot);
+        ctx.lineTo(B.x,B.y);
+        ctx.quadraticCurveTo(cc.x,cc.y, Cc.x,Cc.y);
+        ctx.lineTo(rightX-h1, baseTop);
+        ctx.closePath(); fillStroke(C.wF,C.wS);
+      }
+      // left-side weld
+      { const B={x:memX,y:memBot-rise2}, Cc={x:memX-fS,y:baseTop};
+        const cc=faceCtrl(B,Cc,tgCtr,tgCapS);
+        ctx.beginPath();
+        ctx.moveTo(memX+h2, memBot);
+        ctx.lineTo(B.x,B.y);
+        ctx.quadraticCurveTo(cc.x,cc.y, Cc.x,Cc.y);
+        ctx.lineTo(memX+h2, baseTop);
+        ctx.closePath(); fillStroke(C.wF,C.wS);
+      }
+    }
+    // 뒷면 보강 필릿 z₂ (양면 용접)
+    if(fil2>0){
+      const f2=Math.min(fil2*sc, memW*0.9);
+      ctx.beginPath();
+      ctx.moveTo(memX, baseTop);
+      ctx.lineTo(memX-f2, baseTop);
+      ctx.lineTo(memX, baseTop-f2);
+      ctx.closePath(); fillStroke(C.wF,C.wS);
+    }
+    // root gap band
+    if(gap>0){ ctx.fillStyle=C.gF; ctx.fillRect(memX+(isK?(T-root)*(1-ratio)*sc:0), memBot, rootS, gS); }
+
+    // θ centreline (변환 안 → 부재 축 따라 기울어짐)
+    ctx.strokeStyle=C.dim; ctx.lineWidth=0.8; ctx.setLineDash([3,3]);
+    ctx.beginPath(); ctx.moveTo(cx,baseTop); ctx.lineTo(cx,memTopY-6); ctx.stroke(); ctx.setLineDash([]);
+    ctx.restore();   // shear 해제
+    lbl(`θ=${theta}°  Kθ=${rnd(1/Math.sin(deg2rad(theta)),3)}`, 8, 30, C.dim);
+    tag(tr(ISO[jt]?.name||'T-Joint')+`  T=${T}  α=${ang}°`);
+    info(`Root Face=${root}  Gap=${gap}mm${fil?'  '+tr('보강필릿')+' z='+fil:''}`);
+  }
+
+  // ════════════════════════════════════════════════
+  //  TKY TUBULAR  (tube-on-tube: brace welded to chord)
+  // ════════════════════════════════════════════════
+  else if(jt==='TKY'||jt==='TKYDB'){
+    const theta=gv('tkyAngle')||45, D=gv('tkyD')||508, d=gv('tkyd')||219;
+    const tw=gv('tkyt')||12, ang=gv('tkyAng')||45, root=gvz('tkyRoot',0), gap=gvz('tkyGap',3), fil=gvz('tkyFil',8);
+    const ttype=document.getElementById('tkyType')?.value||'Y';
+    const braceGap=gvz('tkyBraceGap',0);
+    const isOverlap=(ttype==='K' && braceGap<0);
+    const dbl=(jt==='TKYDB');
+    const sv=Math.sin(deg2rad(theta));
+    const beta=Math.min(0.99, d/Math.max(D,1));
+
+    // ════ LEFT (58%): tube-on-tube overview ════
+    const cxx=W*0.30, chMidY=cy+38;
+    const chR=W*0.26;                         // chord half-length on screen
+    const chRy=Math.min(24, H*0.14);          // chord tube radius
+    const chLx=cxx-chR, chRx=cxx+chR;
+    ctx.fillStyle=C.plate; ctx.strokeStyle=C.plateS; ctx.lineWidth=1.3;
+    ctx.beginPath();
+    ctx.moveTo(chLx, chMidY-chRy);
+    ctx.lineTo(chRx, chMidY-chRy);
+    ctx.ellipse(chRx, chMidY, 9, chRy, 0, -Math.PI/2, Math.PI/2);
+    ctx.lineTo(chLx, chMidY+chRy);
+    ctx.ellipse(chLx, chMidY, 9, chRy, 0, Math.PI/2, -Math.PI/2, true);
+    ctx.closePath(); ctx.fill(); ctx.stroke();
+    ctx.beginPath(); ctx.ellipse(chLx, chMidY, 9, chRy, 0, 0, Math.PI*2); ctx.stroke();
+    ctx.save(); ctx.globalAlpha=0.5;
+    ctx.beginPath(); ctx.ellipse(chLx, chMidY, 9*0.62, chRy*0.78, 0, 0, Math.PI*2); ctx.stroke();
+    ctx.restore();
+
+    function drawBrace(angDeg, dirSign, footOffset){
+      const th=deg2rad(angDeg);
+      const bRy=Math.max(7, Math.min(chRy*0.62, beta*chRy*1.6));
+      const bLen=Math.min(H*0.38, 100);
+      const topY=chMidY-chRy;
+      const fx=cxx + dirSign*(footOffset!=null?footOffset:chR*0.34);
+      const ux=dirSign*Math.cos(th), uy=-Math.sin(th);
+      const nx=Math.sin(th),         ny=dirSign*Math.cos(th);
+      function basePoint(s){ const t=-(s*bRy*ny)/uy; return {x:fx+s*bRy*nx+t*ux, y:topY}; }
+      const B1=basePoint(+1), B2=basePoint(-1);
+      const tcx=fx+ux*bLen, tcy=topY+uy*bLen;
+      const T1={x:tcx+bRy*nx, y:tcy+bRy*ny};
+      const T2={x:tcx-bRy*nx, y:tcy-bRy*ny};
+      const tipRot=Math.atan2(ny,nx);
+      ctx.fillStyle=C.plate; ctx.strokeStyle=C.plateS; ctx.lineWidth=1.3;
+      ctx.beginPath();
+      ctx.moveTo(B1.x,B1.y); ctx.lineTo(T1.x,T1.y); ctx.lineTo(T2.x,T2.y); ctx.lineTo(B2.x,B2.y);
+      ctx.closePath(); ctx.fill(); ctx.stroke();
+      ctx.fillStyle=C.plate;
+      ctx.beginPath(); ctx.ellipse(tcx,tcy, bRy, bRy*0.32, tipRot, 0, Math.PI*2); ctx.fill(); ctx.stroke();
+      ctx.fillStyle=C.wF; ctx.strokeStyle=C.wS; ctx.lineWidth=1.4;
+      const wOut=8, wUp=8;
+      [[B1,+1],[B2,-1]].forEach(([B,s])=>{
+        const out=s*(B1.x>=B2.x?1:-1);
+        ctx.beginPath();
+        ctx.moveTo(B.x, topY);
+        ctx.lineTo(B.x+out*wOut, topY);
+        ctx.lineTo(B.x+ux*wUp, topY+uy*wUp);
+        ctx.closePath(); fillStroke(C.wF,C.wS);
+      });
+    }
+    if(ttype==='K'){
+      // 겹침이면 두 brace foot을 가깝게 당겨 교차 표현 / gap>0이면 벌려 표현
+      const baseOff=chR*0.34;
+      const off=isOverlap ? Math.max(chR*0.12, baseOff*0.45) : baseOff;
+      drawBrace(theta,+1,off); drawBrace(theta,-1,off);
+      if(isOverlap){
+        // 두 brace가 겹치는 지점 강조 (chord 표면 교차부)
+        ctx.save();
+        ctx.fillStyle=C.wF; ctx.strokeStyle=C.wS; ctx.lineWidth=1.6;
+        const mx=cxx, my=chMidY-chRy;
+        ctx.beginPath(); ctx.arc(mx,my,7,0,Math.PI*2); ctx.closePath(); fillStroke(C.wF,C.wS);
+        ctx.restore();
+        lbl(tr('겹침부'), mx-14, my-12, C.wS);
+      }
+    }
+    else { drawBrace(theta,+1); }   // Single (T/Y): θ=90이면 T형
+
+    // ════ RIGHT (42%): CHORD 단면 뷰 — 원형 chord에 brace 안착 (β=d/D → 부착각 Ψs) ════
+    const sx0=W*0.585, sw=W-sx0-6;
+    if(isOverlap){
+      // 겹침 K-joint: 단면도 대신 "별도 상세도 + PQR 검증" 안내
+      ctx.save();
+      ctx.strokeStyle=C.dim; ctx.lineWidth=0.7; ctx.setLineDash([3,4]);
+      ctx.beginPath(); ctx.moveTo(W*0.575, 14); ctx.lineTo(W*0.575, H-28); ctx.stroke();
+      ctx.setLineDash([]);
+      // 경고 박스
+      const bx=sx0+4, by=46, bw=sw-2, bh=H-92;
+      ctx.fillStyle=C.warnBg||'rgba(230,150,30,0.10)';
+      ctx.strokeStyle=C.warn||'#c77d11'; ctx.lineWidth=1.3;
+      if(ctx.roundRect){ ctx.beginPath(); ctx.roundRect(bx,by,bw,bh,8); ctx.fill(); ctx.stroke(); }
+      else { ctx.fillRect(bx,by,bw,bh); ctx.strokeRect(bx,by,bw,bh); }
+      ctx.restore();
+      // ⚠ 아이콘 + 문구 (줄바꿈 수동)
+      ctx.save();
+      ctx.fillStyle=C.warn||'#c77d11';
+      ctx.font='600 18px system-ui,sans-serif'; ctx.textAlign='center';
+      ctx.fillText('⚠', sx0+sw/2, by+30);
+      ctx.fillStyle=C.text||'#1d1d1f';
+      ctx.font='600 11px system-ui,sans-serif';
+      const lines=tr('겹침 K-Joint 안내').split('|');
+      let yy=by+52;
+      lines.forEach(ln=>{ ctx.fillText(ln, sx0+sw/2, yy); yy+=16; });
+      ctx.restore();
+      lbl(tr('Chord Section (단면)'), sx0+6, 24, C.dim);
+    } else {
+    // viewport divider
+    ctx.save(); ctx.strokeStyle=C.dim; ctx.lineWidth=0.7; ctx.setLineDash([3,4]);
+    ctx.beginPath(); ctx.moveTo(W*0.575, 14); ctx.lineTo(W*0.575, H-28); ctx.stroke(); ctx.restore();
+    // chord circle (단면 — 해칭)
+    const Rc=Math.min(sw*0.43, H*0.30);
+    const scx=sx0+sw*0.5, scy=H*0.56;
+    ctx.fillStyle=C.hatch; ctx.strokeStyle=C.plateS; ctx.lineWidth=1.4;
+    ctx.beginPath(); ctx.arc(scx,scy,Rc,0,Math.PI*2); ctx.closePath(); ctx.fill(); ctx.stroke();
+    // chord 내경 (벽두께 암시)
+    ctx.save(); ctx.globalAlpha=0.45;
+    ctx.beginPath(); ctx.arc(scx,scy,Rc*0.84,0,Math.PI*2); ctx.closePath(); ctx.stroke(); ctx.restore();
+    // brace 안착: 접점 반각 φ=asin(β), 단면 부착각 ω (90°=정상부 수직)
+    const phi=Math.asin(beta);
+    const om=Math.PI/2;                                // 표준 수직 안착 (회전 대칭 — 각도 무관)
+    const bax=Math.cos(om), bay=-Math.sin(om);        // brace 축 단위벡터 (중심 통과)
+    const pa=Math.atan2(bay,bax);                      // 축 위치각
+    const aP=pa+phi, aQ=pa-phi;                        // 접점 위치각 (축 기준 ±asinβ)
+    const Px=scx+Rc*Math.cos(aP), Py=scy+Rc*Math.sin(aP);
+    const Qx=scx+Rc*Math.cos(aQ), Qy=scy+Rc*Math.sin(aQ);
+    let Lb=H*0.40;                                     // 끝단이 캔버스를 벗어나지 않게 클램프
+    if(bax>0.05) Lb=Math.min(Lb, (W-10-Math.max(Px,Qx))/bax);
+    if(bay<-0.05) Lb=Math.min(Lb, (Math.min(Py,Qy)-50)/(-bay));   // 상단 라벨 영역 침범 방지
+    Lb=Math.max(Lb, H*0.16);
+    // brace band: 축 방향 벽, 바닥은 chord 원호(saddle cut) — 단면 해칭
+    ctx.fillStyle=C.hatch; ctx.strokeStyle=C.plateS; ctx.lineWidth=1.4;
+    ctx.beginPath();
+    ctx.moveTo(Qx+bax*Lb, Qy+bay*Lb);
+    ctx.lineTo(Qx, Qy);
+    for(let i=0;i<=20;i++){ const a=aQ+(aP-aQ)*i/20; ctx.lineTo(scx+Rc*Math.cos(a), scy+Rc*Math.sin(a)); }
+    ctx.lineTo(Px+bax*Lb, Py+bay*Lb);
+    ctx.closePath(); ctx.fill(); ctx.stroke();
+    // brace 내벽 (벽두께 t): βi=(d−2t)/D
+    const betaI=Math.max(0,(d-2*tw)/Math.max(D,1));
+    const phiI=Math.asin(Math.min(betaI,0.99));
+    ctx.save(); ctx.globalAlpha=0.5; ctx.strokeStyle=C.plateS; ctx.lineWidth=1;
+    [pa+phiI, pa-phiI].forEach(a=>{
+      const ix=scx+Rc*Math.cos(a), iy=scy+Rc*Math.sin(a);
+      ctx.beginPath(); ctx.moveTo(ix+bax*Lb*0.96, iy+bay*Lb*0.96); ctx.lineTo(ix, iy); ctx.stroke();
+    });
+    ctx.restore();
+    // 용접: 접점 코너 (brace 벽 ↔ 원 접선, 내각 Ψs=90°+φ) — 양측
+    ctx.fillStyle=C.wF; ctx.strokeStyle=C.wS; ctx.lineWidth=1.6;
+    const wl=Math.max(9, Math.min(16, fil*1.2));
+    [[Px,Py,aP,+1],[Qx,Qy,aQ,-1]].forEach(([px,py,af,s])=>{
+      const tx=-Math.sin(af)*s, ty=Math.cos(af)*s;     // 원 둘레 접선, brace에서 멀어지는 방향
+      ctx.beginPath();
+      ctx.moveTo(px, py);
+      ctx.lineTo(px+bax*wl*1.1, py+bay*wl*1.1);        // 벽 따라 위로 (축 방향)
+      ctx.lineTo(px+tx*wl, py+ty*wl);                  // 원 표면 따라 바깥으로
+      ctx.closePath(); fillStroke(C.wF,C.wS);
+    });
+    // Ψs 호 + 라벨 (s=+1 접점): 축 방향 → 접선 방향
+    ctx.save(); ctx.strokeStyle=C.dim; ctx.lineWidth=1;
+    ctx.beginPath(); ctx.arc(Px, Py, 18, pa, aP+Math.PI/2); ctx.stroke(); ctx.restore();
+    lbl(tr('Chord Section (단면)'), sx0+6, 24, C.dim);
+    lbl(`β=${rnd(beta,3)}  Ψs=${rnd(90+phi*180/Math.PI,1)}°`, sx0+6, 40, C.wS);
+    lbl(`OD₁=${D}`, scx-16, scy+6, C.dim);
+    lbl(`OD₂=${d}`, Math.min(W-34, Px+bax*Lb+6), Math.max(52, Py+bay*Lb+12), C.dim);
+    }
+
+    const fcv=Math.tan((Math.PI-deg2rad(theta))/2), fsv=Math.tan((Math.PI/2+Math.asin(beta))/2);
+    tag(`Branch ${dbl?'Double':'Single'}-Bevel (${ttype})  θ=${theta}°  β=${rnd(beta,2)}`);
+    lbl(`Toe:${rnd(fcv,2)} Sad:${rnd(fsv,2)} Heel:${rnd(1/sv,2)}`, 8, 30, C.dim);
+    info(isOverlap
+      ? tr('겹침 K-Joint — 겹침부는 별도 상세도 작성 및 PQR 검증 필요')
+      : `t=${tw}  α=${ang}°  r=${root}  g=${gap} — `+tr('우측: Chord 단면, β에 따라 부착각 Ψs 변화'));
+  }
+}
+    return function(rec){ try{ var m=blMap(rec); _M=m; curJoint=m.jointType||'ButtV'; var z2=parseFloat(m.z2); curTSub=(z2>0)?'double':'single'; curFilSide=curTSub; var cv=document.createElement('canvas'); cv.width=300; cv.height=200; _RCCV=cv; drawPreview(); return cv.toDataURL('image/png'); }catch(e){ return null; } };
+  })();
+  try{ window.__rcCS=__rcCSfn; }catch(e){}
+
   function buildReport(rec){
     var theo=theoryMass(rec)||0, act=actFromRec(rec);
     var pre=(rec.actual&&rec.actual.pre)||{}, mid=(rec.actual&&rec.actual.mid)||{}, post=(rec.actual&&rec.actual.post)||{};
@@ -2893,7 +3648,7 @@ recalc();
         '</td>'+
         '<td valign="top" width="192" style="width:192px">'+
           '<div style="border:1px solid '+BX+';border-radius:8px;padding:7px 9px 8px;background:#fbfcfd;margin-top:10px">'+
-            jointSVG(rec)+
+            (function(){ if(window.__rcCS){ try{ var _u=window.__rcCS(rec); if(_u&&_u.length>300) return '<img src="'+_u+'" style="width:100%;display:block;border-radius:4px"/>'; }catch(e){} } return jointSVG(rec); })()+
             '<div style="margin-top:5px;font-size:8px;color:'+SUB+';line-height:1.6;border-top:1px solid '+LINE+';padding-top:5px">'+
               '<b style="color:'+INK+';font-size:10px">'+esc((rec.jointType||'')+(rec.groove?(' / '+rec.groove):''))+'</b><br>'+
               L.thk+' <b style="color:'+INK+'">'+_v(rec.T)+(String(rec.T2||'').trim()?(' / '+esc(rec.T2)):'')+' mm</b> · '+L.gap+' <b style="color:'+INK+'">'+((rec.actual&&rec.actual.pre&&rec.actual.pre.gap)?esc(rec.actual.pre.gap)+' mm':(rec.gap?esc(rec.gap)+' mm':'–'))+'</b><br>'+
@@ -6270,9 +7025,11 @@ function prjExportPDF(){
 html,body{overflow-x:hidden}
 .grid>*,.g2>*,.g3>*,.g4>*,.fld{min-width:0}
 .fld>input,.fld>select,.fld>textarea{width:100%;max-width:100%}
-label,.stitle,.chip,.tab,.hint,.note{overflow-wrap:break-word}
-@media(max-width:560px){.grid,.g2,.g3,.g4{grid-template-columns:1fr!important}
-.btn,.hbtn,.tab,.chip,button{white-space:normal}
+label,.hint,.note{overflow-wrap:break-word}
+.stitle{flex-wrap:wrap;row-gap:6px}
+@media(max-width:520px){.grid,.g2,.g3,.g4{grid-template-columns:1fr!important}
+.btn,.hbtn,.tab,button{white-space:nowrap}
+.stitle,.actbar,.tabs,.mtoolbar,.chips,.toolbar{flex-wrap:wrap}
 .appnav{flex-wrap:nowrap}
 .topbar{flex-wrap:wrap;height:auto;min-height:46px;padding-top:4px;padding-bottom:4px}}
 </style>
@@ -6638,9 +7395,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',Robo
 html,body{overflow-x:hidden}
 .grid>*,.g2>*,.g3>*,.g4>*,.fld{min-width:0}
 .fld>input,.fld>select,.fld>textarea{width:100%;max-width:100%}
-label,.stitle,.chip,.tab,.hint,.note{overflow-wrap:break-word}
-@media(max-width:560px){.grid,.g2,.g3,.g4{grid-template-columns:1fr!important}
-.btn,.hbtn,.tab,.chip,button{white-space:normal}
+label,.hint,.note{overflow-wrap:break-word}
+.stitle{flex-wrap:wrap;row-gap:6px}
+@media(max-width:520px){.grid,.g2,.g3,.g4{grid-template-columns:1fr!important}
+.btn,.hbtn,.tab,button{white-space:nowrap}
+.stitle,.actbar,.tabs,.mtoolbar,.chips,.toolbar{flex-wrap:wrap}
 .appnav{flex-wrap:nowrap}
 .topbar{flex-wrap:wrap;height:auto;min-height:46px;padding-top:4px;padding-bottom:4px}}
 </style>
