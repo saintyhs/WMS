@@ -103,8 +103,8 @@ label,.hint,.note{overflow-wrap:break-word}
   <style>
     #authGate{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;background:#0E1411;overflow:hidden}
     #authGate .ag-bg{position:absolute;inset:0;background:#080C0A}
-    #authGate .ag-bg canvas{position:absolute;inset:0;width:100%;height:100%;filter:blur(16px) brightness(.55) saturate(1.15)}
-    #authGate .ag-bg::after{content:'';position:absolute;inset:0;background:radial-gradient(1200px 800px at 50% 48%,rgba(0,0,0,.18) 0%,rgba(0,0,0,.62) 78%,rgba(0,0,0,.8) 100%)}
+    #authGate .ag-bg canvas{position:absolute;inset:0;width:100%;height:100%;filter:blur(8px) brightness(.8) saturate(1.25)}
+    #authGate .ag-bg::after{content:'';position:absolute;inset:0;background:radial-gradient(760px 520px at 50% 50%,rgba(0,0,0,.42) 0%,rgba(0,0,0,.15) 55%,rgba(0,0,0,0) 100%)}
     #authGate .ag-bg span{display:none}
     #authGate .ag-top{position:absolute;top:20px;right:20px;z-index:3}
     #authGate .ag-top select{font-size:13px;padding:7px 12px;border-radius:8px;border:1px solid #2A342E;background:#161D18;color:#E7ECE9;cursor:pointer}
@@ -8829,7 +8829,7 @@ window.agWeldStart=function(){
   fit(); window.addEventListener('resize',fit);
   var reduce=false; try{ reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches; }catch(e){}
   var sparks=[], t=0;
-  function arcPos(){ return {x:W*0.40, y:H*0.62}; }
+  function arcPos(){ return {x:W*0.05, y:H*0.82}; }
   function emit(n,big){
     var a=arcPos();
     for(var i=0;i<n;i++){
